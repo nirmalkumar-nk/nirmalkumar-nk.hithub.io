@@ -63,37 +63,37 @@ function scheduleShootingStars(container) {
     loop();
 }
 
-const BODY_BG_START = [1, 21, 48];
-const BODY_BG_END = [201, 178, 140];
+const TINT_COLOR_START = [1, 21, 48];
+const TINT_COLOR_END = [201, 178, 140];
 
 function lerp(a, b, t) {
     return a + (b - a) * t;
 }
 
-function updateBodyBackground() {
+function updateScrollTint(tintEl) {
     const scrollTop = window.scrollY;
     const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollRange > 0 ? Math.min(1, Math.max(0, scrollTop / scrollRange)) : 0;
 
-    const r = Math.round(lerp(BODY_BG_START[0], BODY_BG_END[0], progress));
-    const g = Math.round(lerp(BODY_BG_START[1], BODY_BG_END[1], progress));
-    const b = Math.round(lerp(BODY_BG_START[2], BODY_BG_END[2], progress));
-    document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    const r = Math.round(lerp(TINT_COLOR_START[0], TINT_COLOR_END[0], progress));
+    const g = Math.round(lerp(TINT_COLOR_START[1], TINT_COLOR_END[1], progress));
+    const b = Math.round(lerp(TINT_COLOR_START[2], TINT_COLOR_END[2], progress));
+    tintEl.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
 }
 
-function initBodyBackgroundScroll() {
+function initScrollTint(tintEl) {
     let ticking = false;
 
     window.addEventListener("scroll", () => {
         if (!ticking) {
             requestAnimationFrame(() => {
-                updateBodyBackground();
+                updateScrollTint(tintEl);
                 ticking = false;
             });
             ticking = true;
         }
     });
-    updateBodyBackground();
+    updateScrollTint(tintEl);
 }
 
 function toggleGlow() {
@@ -109,7 +109,10 @@ function revealWords(onDone) {
 }
 
 window.onload = () => {
-    initBodyBackgroundScroll();
+    const scrollTint = document.getElementById("scrollTint");
+    if (scrollTint) {
+        initScrollTint(scrollTint);
+    }
 
     const starsField = document.getElementById("starsField");
     if (starsField) {

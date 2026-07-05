@@ -7,6 +7,16 @@ body {
     background-color: #011530;
 }
 
+.scroll-tint {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    mix-blend-mode: soft-light;
+    background-color: rgb(1, 21, 48);
+}
+
 .stars-hero {
     position: relative;
     overflow: hidden;
