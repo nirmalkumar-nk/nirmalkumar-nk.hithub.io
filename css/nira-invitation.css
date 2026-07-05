@@ -20,7 +20,7 @@ body {
     width: 100%;
     padding: 1rem;
 
-    background-image: url("resource/NiraInStars.jpg");
+    background-image: url("../resource/NiraInStars.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
