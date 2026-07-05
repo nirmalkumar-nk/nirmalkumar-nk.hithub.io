@@ -63,6 +63,39 @@ function scheduleShootingStars(container) {
     loop();
 }
 
+const BODY_BG_START = [1, 21, 48];
+const BODY_BG_END = [201, 178, 140];
+
+function lerp(a, b, t) {
+    return a + (b - a) * t;
+}
+
+function updateBodyBackground() {
+    const scrollTop = window.scrollY;
+    const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollRange > 0 ? Math.min(1, Math.max(0, scrollTop / scrollRange)) : 0;
+
+    const r = Math.round(lerp(BODY_BG_START[0], BODY_BG_END[0], progress));
+    const g = Math.round(lerp(BODY_BG_START[1], BODY_BG_END[1], progress));
+    const b = Math.round(lerp(BODY_BG_START[2], BODY_BG_END[2], progress));
+    document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+}
+
+function initBodyBackgroundScroll() {
+    let ticking = false;
+
+    window.addEventListener("scroll", () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                updateBodyBackground();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    updateBodyBackground();
+}
+
 function toggleGlow() {
     document.querySelectorAll(".name").forEach((el) => el.classList.toggle("glow"));
 }
@@ -76,6 +109,8 @@ function revealWords(onDone) {
 }
 
 window.onload = () => {
+    initBodyBackgroundScroll();
+
     const starsField = document.getElementById("starsField");
     if (starsField) {
         createStarField(starsField, STAR_COUNT);
