@@ -195,6 +195,25 @@ function initScratchCards(cards, onAllRevealed) {
     });
 }
 
+function initFlipCard(card, cards) {
+    card.addEventListener("click", () => {
+        let allFlipped = true;
+        card.classList.toggle("flipped");
+        cards.forEach((card) => {
+            allFlipped = allFlipped && card.classList.contains("flipped")})
+        if (allFlipped) {
+            const confetti = document.getElementById("petalConfetti");
+            spawnPetalConfetti(confetti, PETAL_COUNT);
+        }
+    });
+}
+
+function initFlipCards(cards) {
+    cards.forEach((card) => {
+        initFlipCard(card, cards)
+    });
+}
+
 function spawnPetalConfetti(container, count) {
     for (let i = 0; i < count; i++) {
         const petal = document.createElement("span");
@@ -237,6 +256,11 @@ window.onload = () => {
     const shootingStars = document.getElementById("shootingStars");
     if (shootingStars) {
         scheduleShootingStars(shootingStars);
+    }
+
+    const flipCards = document.querySelectorAll(".flip-card");
+    if (flipCards.length) {
+        initFlipCards(flipCards);
     }
 
     const scratchCards = document.querySelectorAll(".scratch-card");
