@@ -96,6 +96,120 @@ function initScrollTint(tintEl) {
     updateScrollTint(tintEl);
 }
 
+const SCRATCH_REVEAL_THRESHOLD = 0.5;
+const SCRATCH_BRUSH_RADIUS = 18;
+const PETAL_COUNT = 40;
+
+function initScratchCard(card, onRevealed) {
+    const canvas = card.querySelector(".scratch-canvas");
+    const ctx = canvas.getContext("2d");
+    const hint = card.dataset.hint || "Scratch";
+    let isScratching = false;
+    let revealed = false;
+
+    function paintScratchLayer() {
+        const rect = card.getBoundingClientRect();
+        canvas.width = rect.width;
+        canvas.height = rect.height;
+
+        ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = "#c9a25b";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#4a3418";
+        ctx.font = `600 ${Math.max(10, canvas.width * 0.14)}px Georgia, serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(hint, canvas.width / 2, canvas.height / 2);
+    }
+
+    function scratchAt(clientX, clientY) {
+        const rect = canvas.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.beginPath();
+        ctx.arc(x, y, SCRATCH_BRUSH_RADIUS, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    function getScratchedRatio() {
+        const { width, height } = canvas;
+        const { data } = ctx.getImageData(0, 0, width, height);
+        let cleared = 0;
+        let total = 0;
+        for (let i = 3; i < data.length; i += 4 * 8) {
+            total++;
+            if (data[i] === 0) {
+                cleared++;
+            }
+        }
+        return total > 0 ? cleared / total : 0;
+    }
+
+    function revealCard() {
+        revealed = true;
+        canvas.classList.add("revealed");
+
+        if (onRevealed) {
+            onRevealed();
+        }
+    }
+
+    function handleMove(clientX, clientY) {
+        if (!isScratching || revealed) {
+            return;
+        }
+        scratchAt(clientX, clientY);
+        if (getScratchedRatio() > SCRATCH_REVEAL_THRESHOLD) {
+            revealCard();
+        }
+    }
+
+    canvas.addEventListener("pointerdown", (e) => {
+        isScratching = true;
+        canvas.setPointerCapture(e.pointerId);
+        scratchAt(e.clientX, e.clientY);
+    });
+    canvas.addEventListener("pointermove", (e) => handleMove(e.clientX, e.clientY));
+    canvas.addEventListener("pointerup", () => {
+        isScratching = false;
+    });
+    canvas.addEventListener("pointercancel", () => {
+        isScratching = false;
+    });
+
+    paintScratchLayer();
+}
+
+function initScratchCards(cards, onAllRevealed) {
+    let revealedCount = 0;
+    cards.forEach((card) => {
+        initScratchCard(card, () => {
+            revealedCount++;
+            if (revealedCount === cards.length) {
+                onAllRevealed();
+            }
+        });
+    });
+}
+
+function spawnPetalConfetti(container, count) {
+    for (let i = 0; i < count; i++) {
+        const petal = document.createElement("span");
+        petal.className = "petal";
+        petal.style.setProperty("--left", `${Math.random() * 100}%`);
+        petal.style.setProperty("--size", `${8 + Math.random() * 10}px`);
+        petal.style.setProperty("--drift", `${Math.random() * 120 - 60}px`);
+        petal.style.setProperty("--spin", `${Math.random() * 360}deg`);
+        petal.style.setProperty("--duration", `${3 + Math.random() * 2}s`);
+        petal.style.setProperty("--delay", `${Math.random() * 0.8}s`);
+        petal.addEventListener("animationend", () => petal.remove());
+        container.appendChild(petal);
+    }
+}
+
 function toggleGlow() {
     document.querySelectorAll(".name").forEach((el) => el.classList.toggle("glow"));
 }
@@ -123,6 +237,16 @@ window.onload = () => {
     const shootingStars = document.getElementById("shootingStars");
     if (shootingStars) {
         scheduleShootingStars(shootingStars);
+    }
+
+    const scratchCards = document.querySelectorAll(".scratch-card");
+    if (scratchCards.length) {
+        initScratchCards(scratchCards, () => {
+            const confetti = document.getElementById("petalConfetti");
+            if (confetti) {
+                spawnPetalConfetti(confetti, PETAL_COUNT);
+            }
+        });
     }
 
     revealWords(() => setInterval(toggleGlow, GLOW_INTERVAL_MS));
