@@ -54,7 +54,8 @@ body {
     width: 100%;
     padding: 1rem;
 
-    background-image: url("../resource/VictorianPatterned.jpg");
+    background-image: url("../resource/VictorianPatternLight.jpg");
+    /*background-image: url("../resource/VictorianPatterned.jpg");*/
     /*background-image: url("../resource/BlueParchment.png");*/
     background-size: cover;
     background-position: center;
