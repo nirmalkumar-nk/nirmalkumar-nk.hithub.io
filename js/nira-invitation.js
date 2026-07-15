@@ -205,6 +205,11 @@ function initFlipCard(card, cards) {
         if (allFlipped) {
             const confetti = document.getElementById("petalConfetti");
             spawnPetalConfetti(confetti, PETAL_COUNT);
+
+            const saveDateMessage = document.getElementById("saveDateMessage");
+            if (saveDateMessage) {
+                saveDateMessage.classList.add("visible");
+            }
         }
     });
 }
