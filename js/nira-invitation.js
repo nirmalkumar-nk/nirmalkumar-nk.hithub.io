@@ -239,6 +239,44 @@ function spawnPetalConfetti(container, count) {
     }
 }
 
+const LANDING_FADE_MS = 700;
+
+function initMoonGate() {
+    const moon = document.getElementById("moonGate");
+    const landing = document.getElementById("moonLanding");
+    const siteContent = document.getElementById("siteContent");
+    if (!moon || !landing || !siteContent) {
+        return;
+    }
+
+    function reveal() {
+        if (siteContent.classList.contains("revealed")) {
+            return;
+        }
+        moon.classList.add("risen");
+        landing.classList.add("hidden");
+
+        setTimeout(() => {
+            landing.style.display = "none";
+            siteContent.classList.add("revealed");
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    siteContent.classList.add("visible");
+                    window.scrollTo(0, 0);
+                });
+            });
+        }, LANDING_FADE_MS);
+    }
+
+    moon.addEventListener("click", reveal);
+    moon.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            reveal();
+        }
+    });
+}
+
 function toggleGlow() {
     document.querySelectorAll(".name").forEach((el) => el.classList.toggle("glow"));
 }
@@ -267,6 +305,8 @@ window.onload = () => {
     if (shootingStars) {
         scheduleShootingStars(shootingStars);
     }
+
+    initMoonGate();
 
     const flipCards = document.querySelectorAll(".flip-card");
     if (flipCards.length) {

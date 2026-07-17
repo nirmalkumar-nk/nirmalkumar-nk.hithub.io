@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 
     <title>Nira Invitation</title>
-    <link href="css/nira-invitation.css?v=5" rel="stylesheet">
+    <link href="css/nira-invitation.css?v=7" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#011530" media="(prefers-color-scheme: dark)">
@@ -19,16 +19,19 @@
 </head>
 <body>
 <div class="scroll-tint" id="scrollTint"></div>
-<div class="stars-hero">
+<div class="stars-hero" id="moonLanding">
     <div class="shooting-stars" id="shootingStars"></div>
 <!--    <div class="names">-->
 <!--        <span class="name word">Nirmal</span>-->
 <!--        <span class="ampersand word">&amp;</span>-->
 <!--        <span class="name word">Ranjani</span>-->
 <!--    </div>-->
-    <p class="invite-text">With millions of stars out there, it was sun that blessed life. Like wise, we found love with each other.</p>
+    <p class="invite-text">You are welcomed to the wedding</p>
+    <p class="landing-hint">Tap the moon to begin</p>
+    <div class="moon" id="moonGate" role="button" tabindex="0" aria-label="Reveal the invitation"></div>
 </div>
 <!--<div style="min-height: 5vh; max-height: 7vh"></div>-->
+<div class="site-content" id="siteContent">
 <div class="parchment-paper">
 
     <div class="invitation-message">
@@ -166,6 +169,7 @@
 </div>
 <div class="parchment-paper"></div>
 <div class="petal-confetti" id="petalConfetti"></div>
-<script src="js/nira-invitation.js?v=3"></script>
+</div>
+<script src="js/nira-invitation.js?v=5"></script>
 </body>
 </html>
