@@ -239,14 +239,25 @@ function spawnPetalConfetti(container, count) {
     }
 }
 
+function primeVideoFrame(video) {
+    function onPlaying() {
+        video.pause();
+        video.removeEventListener("playing", onPlaying);
+    }
+    video.addEventListener("playing", onPlaying);
+
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {});
+    }
+}
+
 function initMoonLanding(section, mainInvite) {
     const video = section.querySelector(".moon-landing-video");
     const hint = section.querySelector(".moon-landing-hint");
     let started = false;
 
-    video.addEventListener("loadedmetadata", () => {
-        video.currentTime = 0.01;
-    });
+    primeVideoFrame(video);
 
     section.addEventListener("click", () => {
         if (started) {
