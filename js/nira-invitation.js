@@ -239,6 +239,46 @@ function spawnPetalConfetti(container, count) {
     }
 }
 
+const MOON_BURST_MS = 500;
+
+function initMoonGate() {
+    const moon = document.getElementById("moonGate");
+    const landing = document.getElementById("moonLanding");
+    const flash = document.getElementById("moonFlash");
+    const mainInvite = document.getElementById("mainInvite");
+    if (!moon || !landing || !mainInvite) {
+        return;
+    }
+
+    let gateOpened = false;
+
+    function openGate() {
+        if (gateOpened) {
+            return;
+        }
+        gateOpened = true;
+
+        moon.classList.add("tapped");
+        if (flash) {
+            flash.classList.add("play");
+        }
+
+        setTimeout(() => {
+            landing.classList.add("hidden");
+            mainInvite.classList.add("revealed");
+            window.scrollTo(0, 0);
+        }, MOON_BURST_MS);
+    }
+
+    moon.addEventListener("click", openGate);
+    moon.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openGate();
+        }
+    });
+}
+
 function toggleGlow() {
     document.querySelectorAll(".name").forEach((el) => el.classList.toggle("glow"));
 }
@@ -252,6 +292,8 @@ function revealWords(onDone) {
 }
 
 window.onload = () => {
+    initMoonGate();
+
     const scrollTint = document.getElementById("scrollTint");
     if (scrollTint) {
         initScrollTint(scrollTint);
