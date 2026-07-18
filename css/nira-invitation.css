@@ -41,16 +41,6 @@ body {
     object-fit: cover;
 }
 
-.moon-landing-tint {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-
-    mix-blend-mode: soft-light;
-    background-color: rgb(1, 21, 48);
-}
-
 .moon-landing-text {
     position: absolute;
     z-index: 2;
