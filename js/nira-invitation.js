@@ -239,6 +239,33 @@ function spawnPetalConfetti(container, count) {
     }
 }
 
+function initMoonLanding(section, mainInvite) {
+    const video = section.querySelector(".moon-landing-video");
+    const hint = section.querySelector(".moon-landing-hint");
+    let started = false;
+
+    video.addEventListener("loadedmetadata", () => {
+        video.currentTime = 0.01;
+    });
+
+    section.addEventListener("click", () => {
+        if (started) {
+            return;
+        }
+        started = true;
+        if (hint) {
+            hint.classList.add("hidden");
+        }
+        video.muted = false;
+        video.play();
+    });
+
+    video.addEventListener("ended", () => {
+        section.classList.add("hidden");
+        mainInvite.classList.remove("hidden");
+    });
+}
+
 function toggleGlow() {
     document.querySelectorAll(".name").forEach((el) => el.classList.toggle("glow"));
 }
@@ -252,6 +279,12 @@ function revealWords(onDone) {
 }
 
 window.onload = () => {
+    const moonLandingVideo = document.getElementById("moonLandingVideo");
+    const mainInvite = document.getElementById("mainInvite");
+    if (moonLandingVideo && mainInvite) {
+        initMoonLanding(moonLandingVideo, mainInvite);
+    }
+
     const scrollTint = document.getElementById("scrollTint");
     if (scrollTint) {
         initScrollTint(scrollTint);

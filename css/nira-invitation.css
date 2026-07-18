@@ -12,6 +12,71 @@ body {
     background-color: #011530;
 }
 
+.hidden {
+    display: none !important;
+}
+
+.moon-landing {
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    background-color: #011530;
+    cursor: pointer;
+}
+
+.moon-landing-video {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.moon-landing-text {
+    position: absolute;
+    z-index: 2;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    max-width: 90%;
+    margin: 0;
+    padding: 0 1rem;
+
+    font-size: clamp(1.3rem, 4.5vw, 2rem);
+    line-height: 1.5;
+    text-align: center;
+    color: #fdf6e3;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+.moon-landing-hint {
+    position: absolute;
+    z-index: 2;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #fdf6e3;
+    opacity: 0.7;
+
+    animation: hint-pulse 2s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 0.85; }
+}
+
 .scroll-tint {
     position: fixed;
     inset: 0;

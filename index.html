@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 
     <title>Nira Invitation</title>
-    <link href="css/nira-invitation.css?v=5" rel="stylesheet">
+    <link href="css/nira-invitation.css?v=6" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#011530" media="(prefers-color-scheme: dark)">
@@ -18,7 +18,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Jim+Nightshade&display=swap" rel="stylesheet">
 </head>
 <body>
-<div id="mainInvite">
+<div id="moonLandingVideo" class="moon-landing">
+    <video class="moon-landing-video" src="resource/videos/MoonLandscapeNoAudio.mp4" muted playsinline preload="auto"></video>
+    <p class="moon-landing-text">Dear Guest,<br>Ranjani &amp; Nirmal have a message for you</p>
+    <p class="moon-landing-hint">Tap to begin</p>
+</div>
+<div id="mainInvite" class="hidden">
 <div class="scroll-tint" id="scrollTint"></div>
 <div class="stars-hero">
     <div class="shooting-stars" id="shootingStars"></div>
@@ -167,7 +172,7 @@
 </div>
 <div class="parchment-paper"></div>
 <div class="petal-confetti" id="petalConfetti"></div>
-<script src="js/nira-invitation.js?v=3"></script>
+<script src="js/nira-invitation.js?v=4"></script>
 </div>
 </body>
 </html>
