@@ -1,5 +1,6 @@
 const GLOW_INTERVAL_MS = 2500;
 const WORD_REVEAL_DELAY_MS = 500;
+const GUEST_MESSAGE_WORD_DELAY_MS = 450;
 const STAR_COUNT = 40;
 const STAR_SCROLL_RANGE_PX = 500;
 
@@ -20,11 +21,17 @@ function loadGuests(){
         names += " & ".concat(guest2);
     }
 
-    const msg = names+",<br>Ranjani &amp; Nirmal have a message for you";
-    console.log(msg);
+    names = `${wrapWords(names + ",")}`
+    const inviteMessage = `<span class="word">Ranjani &amp; Nirmal have a message for you</span>`;
+    const msg = `${names}<br>${inviteMessage}`;
     const guestCard = document.getElementById("guestNames");
     guestCard.innerHTML = msg;
     guestCard.classList.add("invitation-text");
+    revealWords(".moon-landing-text .word", GUEST_MESSAGE_WORD_DELAY_MS);
+}
+
+function wrapWords(text) {
+    return text.split(" ").map((word) => `<span class="word">${word}</span>`).join(" ");
 }
 
 function createStarField(container, count) {
@@ -324,12 +331,14 @@ function toggleGlow() {
     document.querySelectorAll(".name").forEach((el) => el.classList.toggle("glow"));
 }
 
-function revealWords(onDone) {
-    const words = document.querySelectorAll(".names .word");
+function revealWords(selector, delayMs, onDone) {
+    const words = document.querySelectorAll(selector);
     words.forEach((el, index) => {
-        setTimeout(() => el.classList.add("reveal"), index * WORD_REVEAL_DELAY_MS);
+        setTimeout(() => el.classList.add("reveal"), index * delayMs);
     });
-    setTimeout(onDone, words.length * WORD_REVEAL_DELAY_MS);
+    if (onDone) {
+        setTimeout(onDone, words.length * delayMs);
+    }
 }
 
 window.onload = () => {
@@ -373,5 +382,5 @@ window.onload = () => {
         });
     }
 
-    revealWords(() => setInterval(toggleGlow, GLOW_INTERVAL_MS));
+    revealWords(".names .word", WORD_REVEAL_DELAY_MS, () => setInterval(toggleGlow, GLOW_INTERVAL_MS));
 };

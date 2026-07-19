@@ -204,13 +204,16 @@ body {
     color: var(--dirty-brown-colour);
 }
 
-.names .word {
+.names .word,
+.moon-landing-text .word {
+    display: inline-block;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.names .word.reveal {
+.names .word.reveal,
+.moon-landing-text .word.reveal {
     opacity: 1;
     transform: translateY(0);
 }
