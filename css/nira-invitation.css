@@ -712,6 +712,8 @@ body {
     background-color: var(--scratch-reveal-colour);
     border-radius: 6px;
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    border: 10px solid var(--dirty-brown-colour);
+    /*background-color: var(--dirty-brown-colour);*/
 
     text-align: center;
 }
@@ -722,6 +724,23 @@ body {
     font-size: clamp(1.2rem, 4.5vw, 1.6rem);
     line-height: 1.4;
     color: var(--dirty-brown-colour);
+}
+
+.reception-box {
+    padding: 0.6rem 1.25rem;
+    background-color: var(--scratch-reveal-colour);
+    border-radius: 8px;
+}
+
+.reception-box .save-date-link {
+    color: var(--dirty-brown-colour);
+    border-color: var(--dirty-brown-colour);
+    box-shadow: 0 0 8px rgba(165, 131, 16, 0.35);
+}
+
+.reception-box .save-date-link:hover {
+    background-color: var(--dirty-brown-colour);
+    color: var(--scratch-reveal-colour);
 }
 
 .petal-confetti {
