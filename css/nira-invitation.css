@@ -236,10 +236,6 @@ body {
     transform: translateY(0);
 }
 
-.names .word.reveal {
-    font-size: clamp(1.5rem, 3vw, 4.0rem);
-}
-
 .stars-field {
     position: relative;
     width: 100%;
