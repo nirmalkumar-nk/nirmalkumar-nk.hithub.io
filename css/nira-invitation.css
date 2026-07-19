@@ -228,6 +228,7 @@ body {
 .moon-landing-text .word.reveal {
     opacity: 1;
     transform: translateY(0);
+    font-size: clamp(1.5rem, 3vw, 4.0rem);
 }
 
 .stars-field {
