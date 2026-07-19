@@ -24,6 +24,7 @@ function loadGuests(){
     names = `${wrapWords(names + ",")}`
     const inviteMessage = `<span class="word">Ranjani &amp; Nirmal have a message for you</span>`;
     const msg = `${names}<br>${inviteMessage}`;
+    // const msg = `${wrapWords(names + ",")}<br>${wrapWords("Ranjani &amp; Nirmal have a message for you")}`;
     const guestCard = document.getElementById("guestNames");
     guestCard.innerHTML = msg;
     guestCard.classList.add("invitation-text");
