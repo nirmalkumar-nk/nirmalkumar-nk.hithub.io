@@ -57,6 +57,12 @@ body {
     text-align: center;
     color: #fdf6e3;
     text-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+
+    transition: opacity 0.8s ease;
+}
+
+.moon-landing-text.dissolve {
+    opacity: 0;
 }
 
 .moon-landing-hint {
@@ -76,6 +82,12 @@ body {
     opacity: 0.7;
 
     animation: hint-pulse 2s ease-in-out infinite;
+    transition: opacity 0.8s ease;
+}
+
+.moon-landing-hint.dissolve {
+    animation: none;
+    opacity: 0;
 }
 
 @keyframes hint-pulse {

@@ -10,21 +10,27 @@ function loadGuests(){
     const GUEST_2= "GUEST_2";
     const nameRegex= "^[a-zA-Z]+$";
 
-    let parameters = new URLSearchParams(window.location.search)
+    const parameters = new URLSearchParams(window.location.search);
     const guest1 = parameters.get(GUEST_1);
     const guest2 = parameters.get(GUEST_2);
-    let names = "Dear";
+
+    let guestNames = "";
     if(guest1 !== null && guest1.length !== 0 && guest1.match(nameRegex)){
-        names += " ".concat(guest1);
+        guestNames += guest1;
     }
     if(guest2 !== null && guest2.length !== 0 && guest2.match(nameRegex)){
-        names += " & ".concat(guest2);
+        guestNames += (guestNames.length !== 0 ? " & " : "") + guest2;
     }
 
-    names = `${wrapWords(names + ",")}`
-    const inviteMessage = `<span class="word">Ranjani &amp; Nirmal have a message for you</span>`;
-    const msg = `${names}<br>${inviteMessage}`;
-    // const msg = `${wrapWords(names + ",")}<br>${wrapWords("Ranjani &amp; Nirmal have a message for you")}`;
+    const lines = [
+        { text: "Dear,", wordByWord: true },
+        { text: guestNames.length !== 0 ? `${guestNames},` : "", wordByWord: true },
+        { text: "Ranjani &amp; Nirmal have a message for you", wordByWord: false },
+    ].filter((line) => line.text.length !== 0);
+
+    const msg = lines
+        .map((line) => (line.wordByWord ? wrapWords(line.text) : wrapLine(line.text)))
+        .join("<br>");
     const guestCard = document.getElementById("guestNames");
     guestCard.innerHTML = msg;
     guestCard.classList.add("invitation-text");
@@ -33,6 +39,10 @@ function loadGuests(){
 
 function wrapWords(text) {
     return text.split(" ").map((word) => `<span class="word">${word}</span>`).join(" ");
+}
+
+function wrapLine(text) {
+    return `<span class="word">${text}</span>`;
 }
 
 function createStarField(container, count) {
@@ -287,9 +297,11 @@ function primeVideoFrame(video) {
 
 const FADE_OUT_START_SECONDS = 6;
 const FADE_OUT_FALLBACK_DURATION_MS = 1500;
+const MESSAGE_DISSOLVE_DURATION_MS = 800;
 
 function initMoonLanding(section, mainInvite) {
     const video = section.querySelector(".moon-landing-video");
+    const message = section.querySelector(".moon-landing-text");
     const hint = section.querySelector(".moon-landing-hint");
     let started = false;
     let fadeStarted = false;
@@ -301,11 +313,16 @@ function initMoonLanding(section, mainInvite) {
             return;
         }
         started = true;
-        if (hint) {
-            hint.classList.add("hidden");
+        if (message) {
+            message.classList.add("dissolve");
         }
-        video.muted = false;
-        video.play();
+        if (hint) {
+            hint.classList.add("dissolve");
+        }
+        setTimeout(() => {
+            video.muted = false;
+            video.play();
+        }, MESSAGE_DISSOLVE_DURATION_MS);
     });
 
     video.addEventListener("timeupdate", () => {
