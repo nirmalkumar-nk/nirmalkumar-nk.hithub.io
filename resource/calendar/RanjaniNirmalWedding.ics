@@ -1,6 +1,8 @@
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//ical.marudot.com//iCal Event Maker
+X-WR-CALNAME:Ranjani and Nirmal Wedding
+NAME:Ranjani and Nirmal Wedding
 CALSCALE:GREGORIAN
 BEGIN:VTIMEZONE
 TZID:Asia/Kolkata
@@ -15,13 +17,13 @@ DTSTART:19700101T000000
 END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
-DTSTAMP:20260715T201914Z
+DTSTAMP:20260719T191748Z
 UID:1784146531523-66014@ical.marudot.com
 DTSTART;TZID=Asia/Kolkata:20260822T173000
 DTEND;TZID=Asia/Kolkata:20260823T123000
 SUMMARY:Ranjani & Nirmal Wedding
 URL:https://nirmalkumar-nk.github.io/
-DESCRIPTION:Nirmal and Ranjani invite you to their wedding\n\nPlease keep an eye on the wedding website
+DESCRIPTION:Ranjani and Nirmal invite you to their wedding\n\nPlease keep an eye on the wedding website
 LOCATION:https://maps.app.goo.gl/T49CfM5jKooDhdgx6
 BEGIN:VALARM
 ACTION:DISPLAY
