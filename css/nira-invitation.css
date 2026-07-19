@@ -53,7 +53,8 @@ body {
     padding: 0 1rem;
 
     width: 100%;
-    font-size: clamp(1.6rem, 6vw, 2.3rem);
+    font-size: clamp(2.5rem, 6vw, 2.3rem);
+    /*font-size: clamp(2.5rem, 4.2vw, 1.8rem);*/
     line-height: 1.6;
     text-align: center;
     color: #fdf6e3;
@@ -215,6 +216,10 @@ body {
     font-size: clamp(1.25rem, 7vw, 2.5rem);
     /*color: #f2d675;*/
     color: var(--dirty-brown-colour);
+}
+
+.guest-text {
+    font-size: clamp(2.5rem, 4.2vw, 1.8rem);
 }
 
 .names .word,

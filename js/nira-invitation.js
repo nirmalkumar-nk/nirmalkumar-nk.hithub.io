@@ -34,6 +34,7 @@ function loadGuests(){
     const guestCard = document.getElementById("guestNames");
     guestCard.innerHTML = msg;
     guestCard.classList.add("invitation-text");
+    guestCard.classList.add("guest-text");
     revealWords(".moon-landing-text .word", GUEST_MESSAGE_WORD_DELAY_MS);
 }
 
