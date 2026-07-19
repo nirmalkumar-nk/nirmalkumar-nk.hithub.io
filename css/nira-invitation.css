@@ -685,6 +685,49 @@ body {
     text-shadow: 0 0 6px rgba(0, 0, 0, 0.4);
 }
 
+.timeline-continuation {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 32rem;
+    margin-top: 1.25rem;
+}
+
+.timeline-continuation-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-bottom: 1.25rem;
+
+    background: #f2d675;
+    box-shadow: 0 0 6px #f2d675, 0 0 12px rgba(242, 214, 117, 0.7);
+}
+
+.journey-box {
+    width: 100%;
+    max-width: 22rem;
+    padding: 1rem 1.5rem;
+
+    background-color: var(--scratch-reveal-colour);
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+
+    text-align: center;
+}
+
+.journey-box-text {
+    margin: 0;
+    font-family: "Rouge Script", cursive;
+    font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+    line-height: 1.4;
+    color: var(--dirty-brown-colour);
+}
+
 .petal-confetti {
     position: fixed;
     inset: 0;
